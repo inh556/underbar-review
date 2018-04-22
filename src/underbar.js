@@ -34,7 +34,7 @@
   _.first = function(array, n) {
 
     return n === undefined ? array[0] : array.slice(0, n);
-    
+
     // this express can be rewritten like bellow:
 
     // if (n === undefined) {
@@ -47,6 +47,27 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+    //return n === undefined ? array[array.length - 1] : array.slice(array.length - n);
+
+    // first way
+
+    // if (n === undefined) {
+    //   return array[array.length - 1];
+    // } else if (n === 0) {
+    //   return [];
+    // } else {
+    //   return array.slice(-n);
+    // }
+    
+    // second way
+
+    if (n === undefined) {
+      return array[array.length - 1];
+    } else if (n > array.length) {
+      return array.slice(0);
+    } else {
+      return array.slice(array.length - n);
+    }
   };
 
   // Call iterator(value, key, collection) for each element of collection.
