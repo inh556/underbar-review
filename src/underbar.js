@@ -95,18 +95,25 @@
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
     var result = -1;
-
+    // loop each item of array with _.each 
     _.each(array, function(item, index) {
+      // always return the first item found
       if (item === target && result === -1) {
         result = index;
       }
     });
-
     return result;
   };
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    let result = [];
+    _.each(collection, function(item) {
+      if(test(item)) {
+        result.push(item);
+      }
+    })
+    return result;
   };
 
   // Return all elements of an array that don't pass a truth test.
