@@ -149,7 +149,12 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
-
+    var result = [];
+    var iterator = iterator || _.identity;
+    _.each(collection, function(el) {
+      result.push(iterator(el));
+    });
+    return result;
   };
 
   /*
@@ -210,19 +215,21 @@
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
     var iterator = iterator || _.identity;
-    return _.reduce(collection, function(result,item){
-      if(iterator(item)) {
+    return _.reduce(collection, function(result, item) {
+      if (iterator(item)) {
         return result;
       } else {
         return false;
       }
-    },true)
+    }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    var iterator = iterator || _.identity;
+    return !_.every(collection, iterator);
   };
 
 
