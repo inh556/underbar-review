@@ -79,10 +79,10 @@
     let x = iterator || _.identity;
     if(Array.isArray(collection)) {
       for (let i = 0; i < collection.length; i++) {
-      iterator(collection[i], i, collection);
+        iterator(collection[i], i, collection);
       }    
     } else if (typeof collection ==='object') {
-      for(let item in collection) {
+      for (let item in collection) {
         iterator(collection[item], item, collection);
       }
     }
@@ -112,7 +112,7 @@
       if(test(item)) {
         result.push(item);
       }
-    })
+    });
     return result;
   };
 
@@ -122,11 +122,25 @@
     // copying code in and modifying it
     return _.filter(collection, function(item) {
       return !(test(item));
-    })
+    });
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    let result = [];
+    let tep = [];
+    // why can I not use const or let here but var?
+    var iterator = iterator || _.identity;
+    if (!isSorted) {
+      array.sort();
+    }
+    _.each(array, function(el) {
+      if (!tep.includes(iterator(el))) {
+        tep.push(iterator(el));
+        result.push(el);
+      }
+    });
+    return result;
   };
 
 
@@ -135,6 +149,7 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+
   };
 
   /*
@@ -194,6 +209,14 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    var iterator = iterator || _.identity;
+    return _.reduce(collection, function(result,item){
+      if(iterator(item)) {
+        return result;
+      } else {
+        return false;
+      }
+    },true)
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
