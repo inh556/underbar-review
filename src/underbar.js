@@ -314,7 +314,7 @@
       }
       // The new function always returns the originally computed result.
       return result;
-    };
+    };                          
   };
 
   // Memorize an expensive function's results by storing them. You may assume
@@ -326,6 +326,19 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    // set a new object
+    var result = {};
+    return function() {
+      //transform args to string
+      var args = JSON.stringify(arguments);
+      // check if this input has been existed in the obj
+      // if not, calculate it and add it to result and return ;
+      if(!result[args]) {
+        result[args] = func.apply(this, arguments);
+      } 
+      // else, return it directly 
+      return result[args];
+    }
   };
 
   // Delays a function for the given number of milliseconds, and then calls
